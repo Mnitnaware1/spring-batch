@@ -1,0 +1,66 @@
+server:
+  port: 8082
+batch:
+    input:
+        chunk-size: 3000
+        ignore-columns: H,ACTION_CODE
+        max-thread: 3
+file:
+    watcher:
+        rest:
+            endpoint: http://localhost:8083/pbrc-feeder-watcher
+hibernate:
+    dialect: org.hibernate.dialect.Oracle10gDialect
+logging:
+    file: feeder-batch.log
+    level:
+        com:
+            mastercard: DEBUG
+        org:
+            springframework: ERROR
+            springframework.batch: ERROR
+    pattern:
+        console: '%d{yyyy-MM-dd HH:mm:ss} console %msg%'
+        file: '%d{yyyy-MM-dd HH:mm:ss} file logger %msg%n'
+management:
+    endpoints:
+        web:
+            exposure:
+                include: '*'
+spring:
+    application:
+        name: pbrc-offline-batch
+    batch:
+        initialize-schema: always
+        job:
+            enabled: false
+        tablePrefix: BCX_OWNER.BATCH_
+    cloud:
+        config:
+            uri: http://localhost:8888
+    datasource:
+        driver-class: oracle.jdbc.driver.OracleDriver
+        password: SxNQWEa1
+        url: jdbc:oracle:thin:@//bil0stl25:1527/dbcxs
+        username: bcx_user
+        testOnBorrow: true
+        testWhileIdle: true
+        timeBetweenEvictionRunsMillis: 60000
+        minEvictableIdleTimeMillis: 30000
+        validationQuery: SELECT 1
+        max-active: 30
+        max-idle: 10
+        max-wait: 8000
+    jpa:
+        hibernate:
+            ddl-auto: none
+    
+
+priceGuide:
+    PRICE_GUIDE_BILL_EVENT_DEFLT: 'PRICE_GUIDE_BILL_EVNT_DEFLT_ID,H,ACTION_CODE,BILL_EVENT_ID,BILL_EVENT_CD,SERV_ID,SHRT_DESC,LONG_DESC,PBLSH_STRT_DT'
+    PRICE_GUIDE_BILL_EVENT_OVRDE: 'PRICE_GUIDE_BILL_EVNT_OVRDE_ID,H,ACTION_CODE,BILL_EVENT_ID,ALPHA_CNTRY_NUM,BILL_EVENT_CNTRY_ID,REGN_CD,SHRT_DESC,LONG_DESC,PBLSH_STRT_DT'
+    PRICE_GUIDE_BILL_EVENT_RATE: 'PRICE_GUIDE_BILL_EVENT_RATE_ID,H,ACTION_CODE,BILL_EVENT_CNTRY_ID,SERV_CD_CNTRY_ID,BILL_EVENT_ID,BILL_EVENT_CD,SERV_ID,SERV_CD,REGN_CD,ALPHA_CNTRY_NUM,CURR_CD,APPLY_TO_CD,FDR_CD,RGLRTY_TYP_CD,FEE_TYPE_CD,FEE_CAT_CD,FEE_SUB_CAT,RATE_TXT,PBLSH_STRT_DT'
+    PRICE_GUIDE_SERV_DEFLT:  'PRICE_GUIDE_SERV_DEFLT_ID,H,ACTION_CODE,SERV_ID,SERV_CD,SERV_NAM,LONG_DESC,PBLSH_STRT_DT'
+    PRICE_GUIDE_SERV_OVRDE: 'PRICE_GUIDE_SERV_OVRDE_ID,H,ACTION_CODE,SERV_ID,ALPHA_CNTRY_NUM,SERV_CD_CNTRY_ID,REGN_CD,LONG_DESC,PBLSH_STRT_DT'
+    
+        

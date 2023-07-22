@@ -30,7 +30,7 @@
 		<oracle.version>11.2.0</oracle.version>
 		<lombok.version>1.16.20</lombok.version>
 		<guava.version>r05</guava.version>
-		<commons-text.version>1.8</commons-text.version>
+		<commons-text.version>1.10.0</commons-text.version>
 	</properties>
 	<dependencies>
 		<!-- https://mvnrepository.com/artifact/org.springframework.batch/spring-batch-core -->
